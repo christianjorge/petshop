@@ -14,11 +14,11 @@
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
-    <style>
-      *{
-          border:1px solid black;
-      }
-    </style>
+<!--    <style>-->
+<!--      *{-->
+<!--          border:1px solid black;-->
+<!--      }-->
+<!--    </style>-->
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="buscarCliente.php">
                             <span data-feather="users"></span>
                             Iniciar Cliente
                         </a>
