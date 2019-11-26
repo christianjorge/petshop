@@ -7,86 +7,38 @@ class AppDB {
     private $user = "root";
     private $password = "";
     private $database = "petshop";
-
-    /**
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * @param string $host
-     */
-    public function setHost($host)
-    {
-        $this->host = $host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param string $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDatabase()
-    {
-        return $this->database;
-    }
-
-    /**
-     * @param string $database
-     */
-    public function setDatabase($database)
-    {
-        $this->database = $database;
-    }
-
+    private $mysqli;
 
     function _constructor(){
 
     }
 
-    function connect(){
-        $this->link=mysqli_connect($this->host,$this->user,$this->password);
-        if(!$this->link) {
+    private function connect(){
+        $this->mysqli = new mysqli($this->host,$this->user,$this->password, $this->database);
+        print_r($this->mysqli);
+        if(!$this->mysqli) {
             echo "Falha na conexao com o Banco de Dados!<br />";
-            echo "Erro: " . mysqli_error();
+            echo "Erro: " . mysqli_error($this->mysqli);
             die();
-        } elseif(!mysqli_select_db($this->database, $this->link)) {
-            echo "O Banco de Dados solicitado não pode ser aberto!<br />";
-            echo "Erro: " . mysqli_error();
+        }
+    }
+
+    public function disconnect(){
+        $this->mysqli->close();
+    }
+
+    public function executeQuery($query) {
+        $this->connect();
+        $result = mysqli_query($this->mysqli, $query);
+        if($result) {
+            $this->disconnect();
+            return $result;
+        } else {
+            echo "Ocorreu um erro na execução da SQL";
+            echo "Erro :" . mysqli_error($this->mysqli);
+            echo "SQL: " . $query;
             die();
+            $this->disconnect();
         }
     }
 }
