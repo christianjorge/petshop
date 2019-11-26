@@ -1,18 +1,35 @@
 <?php
+require_once('Endereco.php');
 
 
 abstract class Pessoa
 {
     private $nome = "";
+    private $email = "";
     private $endereco;
 
     /**
-     * Pessoa constructor.
-     * @param $endereco
+     * Pessoa constructor
      */
-    public function __construct($endereco)
+    public function __construct()
     {
-        $this->endereco = $endereco;
+        $this->endereco = new Endereco();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**
@@ -32,7 +49,7 @@ abstract class Pessoa
     }
 
     /**
-     * @return string
+     * @return Endereco
      */
     public function getEndereco()
     {
@@ -40,15 +57,12 @@ abstract class Pessoa
     }
 
     /**
-     * @param string $endereco
+     * @param Endereco $endereco
      */
     public function setEndereco($endereco)
     {
         $this->endereco = $endereco;
     }
 
-    /**
-     * Pessoa constructor.
-     */
 
 }

@@ -19,11 +19,15 @@ include_once('top.php');
             <input type="text" class="form-control" name="nome" id="inputNome" placeholder="João LW Fonseca">
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
+                <label for="inputCpfCnpj">CPF/CNPJ</label>
+                <input type="text" class="form-control" name="CpfCnpj" id="inputCpfCnpj" placeholder="CPF ou CNPJ">
+            </div>
+            <div class="form-group col-md-4">
                 <label for="inputEmail4">Email</label>
                 <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="inputPassword4">Password</label>
                 <input type="password" class="form-control" name="senha" id="inputPassword" placeholder="Password">
             </div>

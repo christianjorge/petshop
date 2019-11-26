@@ -2,38 +2,55 @@
 
 
 class Animal{
-  private $codigo;
-  private $especie = "";
-  private $raca = "";
-  private $cor = "";
-  private $peso = 0.0;
-  private $dataNasc;
-  private $observacao = "";
+    private $id = 0;
+    private $especie = "";
+    private $raca = "";
+    private $cor = "";
+    private $peso = 0.0;
+    private $dataNasc;
+    private $observacao = "";
+    private $idCliente = 0;
 
     /**
      * Animal constructor.
-     * @param $codigo
+     * @param $idCliente
      */
-    public function __construct($codigo)
+    public function __construct($idCliente)
     {
-        $this->codigo = $codigo;
-        $this->dataNasc = new Date();
+        $this->idCliente = $idCliente;
+        $this->dataNasc = new DateTime();
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCodigo()
+    public function getId()
     {
-        return $this->codigo;
+        return $this->id;
     }
 
     /**
-     * @param string $codigo
+     * @param int $id
      */
-    public function setCodigo($codigo)
+    public function setId($id)
     {
-        $this->codigo = $codigo;
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdCliente()
+    {
+        return $this->idCliente;
+    }
+
+    /**
+     * @param int $idCliente
+     */
+    public function setIdCliente($idCliente)
+    {
+        $this->idCliente = $idCliente;
     }
 
     /**

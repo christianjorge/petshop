@@ -1,12 +1,13 @@
 <?php
 include_once('topCliente.php');
-require_once('Classes/Cliente.php');
+require_once('Classes/ClienteF.php');
 //Busca cliente, salva código em sessão
 if(isset($_POST['funcao']) && $_POST['funcao'] == 'Buscar'){
-//    $cliente = new Cliente();
-//    $cliente->getByName($_POST['filtroNome']);
+    $cliente = new ClienteF();
+    $cliente->getByName($_POST['filtroNome']);
 
 //    $_SESSION['cliente'] = $cliente->getId();
+    var_dump($cliente);
 }
 
 ?>

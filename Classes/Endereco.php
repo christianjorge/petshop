@@ -3,21 +3,22 @@
 
 class Endereco
 {
+    private $id;
     private $cep;
     private $rua = "";
     private $bairro = "";
     private $cidade = "";
     private $estado = "";
-    private $numero = 0;
+    private $numero = "";
     private $complemento = "";
 
     /**
      * Endereco constructor.
      * @param $cep
      */
-    public function __construct($cep)
+    public function __construct($cep = "")
     {
-        if(!empty($cep)) $this->cep = $cep;
+        $this->cep = $cep;
 
     }
 
@@ -105,7 +106,7 @@ class Endereco
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getNumero()
     {
@@ -113,7 +114,7 @@ class Endereco
     }
 
     /**
-     * @param int $numero
+     * @param string $numero
      */
     public function setNumero($numero)
     {
@@ -134,6 +135,22 @@ class Endereco
     public function setComplemento($complemento)
     {
         $this->complemento = $complemento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

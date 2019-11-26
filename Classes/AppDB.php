@@ -10,12 +10,10 @@ class AppDB {
     private $mysqli;
 
     function _constructor(){
-
     }
 
     private function connect(){
         $this->mysqli = new mysqli($this->host,$this->user,$this->password, $this->database);
-        print_r($this->mysqli);
         if(!$this->mysqli) {
             echo "Falha na conexao com o Banco de Dados!<br />";
             echo "Erro: " . mysqli_error($this->mysqli);
