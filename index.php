@@ -1,5 +1,10 @@
 <?php
 require_once ('top.php');
+require_once ('Classes/AppDB.php');
+
+//$bd = new AppDB();
+//$bd->executeQuery("INSERT INTO cliente (nome) VALUES ('Christian Jorge')");
+
 ?>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
