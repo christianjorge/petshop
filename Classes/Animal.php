@@ -8,19 +8,20 @@ class Animal implements iAnimal {
     private $raca = "";
     private $cor = "";
 
-    public function excluiAnimal($id)
+    public function excluiAnimal()
     {
         // TODO: Implement excluiAnimal() method.
     }
 
-    public function editaAnimal($id)
+    public function editaAnimal()
     {
         // TODO: Implement editaAnimal() method.
     }
 
-    public function cadastraAnimal(Animal $animal)
-    {
-        // TODO: Implement cadastraAnimal() method.
+    public function cadastraAnimal() {
+        $bd = new AppDB();
+        $this->setPeso(str_replace(',', '.',$this->getPeso()));
+        $bd->executeQuery("INSERT INTO `animal` (`especie`, `raca`, `cor`, `peso`, `dataNasc`, `observacao`, `idCliente`) VALUES ('".$this->getEspecie()."', '".$this->getRaca()."', '".$this->getCor()."', '".$this->getPeso()."', '".$this->getDataNasc()."', '".$this->getObservacao()."', ".$this->getIdCliente().");");
     }
 
     /**
@@ -35,7 +36,7 @@ class Animal implements iAnimal {
         if($this->sexo == 'M'){
             return "Macho";
         }else{
-            return "Fêmea";
+            return "Femea";
         }
     }
 

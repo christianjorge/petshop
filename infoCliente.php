@@ -1,37 +1,53 @@
 <?php
 //pra exibir erros php:
-//ini_set('display_errors',1);
-//ini_set('display_startup_erros',1);
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
 //error_reporting(E_ALL);
 require_once('Classes/ClienteF.php');
 session_start();
 //print_r($_POST);
 //Busca cliente, salva código em sessão
-
-if(isset($_POST['funcao']) && $_POST['funcao'] == 'Buscar'){
-    $cliente = new ClienteF();
-    $cliente->getByName($_POST['filtroNome']);
-} else {
-    if (!isset($_SESSION['inseriu']) || $_SESSION['inseriu'] == "") {
-        if (isset($_POST['funcao']) && $_POST['funcao'] == 'Cadastrar') {
-            $bd = new AppDB();
-            $bd->executeQuery("INSERT INTO endereco (cep, rua, bairro, cidade, estado, numero, complemento) VALUES ('" . $_POST['cep'] . "','" . $_POST['rua'] . "','" . $_POST['bairro'] . "','" . $_POST['cidade'] . "','" . $_POST['estado'] . "','" . $_POST['numero'] . "','" . $_POST['complemento'] . "')");
-            $rs = $bd->executeQuery("SELECT max(id) id FROM endereco");
-            $row = mysqli_fetch_array($rs);
-            $idendereco = $row['id'];
-            $bd->executeQuery("INSERT INTO cliente (nome, email, idEndereco, cpf_cnpj, tipo) VALUES ('" . $_POST['nome'] . "','" . $_POST['email'] . "', $idendereco,'" . $_POST['CpfCnpj'] . "','" . $_POST['tipo'] . "')");
+if(isset($_POST['funcao'])){
+    if($_POST['funcao'] == 'Buscar'){
+        $cliente = new ClienteF();
+        $cliente->getByName($_POST['filtroNome']);
+    } else if($_POST['funcao'] == 'cadAnimal'){
+        $animal = new Animal($_SESSION['id_cliente']);
+        $animal->setNome($_POST['nome']);
+        $animal->setSexo($_POST['sexo']);
+        $animal->setEspecie($_POST['especie']);
+        $animal->setRaca($_POST['raca']);
+        $animal->setCor($_POST['cor']);
+        $animal->setPeso($_POST['peso']);
+        $animal->setDataNasc($_POST['dataNasc']);
+        $animal->setObservacao($_POST['obs']);
+        $animal->cadastraAnimal();
+        $cliente = new ClienteF();
+        $cliente->getByName($_SESSION['nome_cliente']);
+    } else {
+        if (!isset($_SESSION['inseriu']) || $_SESSION['inseriu'] == "") {
+            if ($_POST['funcao'] == 'Cadastrar') {
+                $bd = new AppDB();
+                $bd->executeQuery("INSERT INTO endereco (cep, rua, bairro, cidade, estado, numero, complemento) VALUES ('" . $_POST['cep'] . "','" . $_POST['rua'] . "','" . $_POST['bairro'] . "','" . $_POST['cidade'] . "','" . $_POST['estado'] . "','" . $_POST['numero'] . "','" . $_POST['complemento'] . "')");
+                $rs = $bd->executeQuery("SELECT max(id) id FROM endereco");
+                $row = mysqli_fetch_array($rs);
+                $idendereco = $row['id'];
+                $bd->executeQuery("INSERT INTO cliente (nome, email, idEndereco, cpf_cnpj, tipo) VALUES ('" . $_POST['nome'] . "','" . $_POST['email'] . "', $idendereco,'" . $_POST['CpfCnpj'] . "','" . $_POST['tipo'] . "')");
+                $cliente = new ClienteF();
+                $cliente->getByName($_POST['nome']);
+                $_SESSION['inseriu'] = 'sim';
+                unset($_POST['funcao']);
+            }
+        } else {
             $cliente = new ClienteF();
             $cliente->getByName($_POST['nome']);
-            $_SESSION['inseriu'] = 'sim';
-            unset($_POST['funcao']);
         }
-    } else {
-        $cliente = new ClienteF();
-        $cliente->getByName($_POST['nome']);
     }
 }
 
-$_SESSION['cliente'] = $cliente->getId();
+
+$_SESSION['id_cliente'] = $cliente->getId();
+$_SESSION['nome_cliente'] = $cliente->getNome();
 include_once('topCliente.php');
 ?>
     <section class="jumbotron text-center">
@@ -43,7 +59,7 @@ include_once('topCliente.php');
                     <?=$cliente->getCpf()."<br>".$cliente->getEmail();?></p>
                 <p>
                     <a href="#" class="btn btn-primary my-2">Iniciar Compra</a>
-                    <a href="#" class="btn btn-secondary my-2">Cadastrar Animais</a>
+                    <a href="./cadastrarAnimal.php" class="btn btn-secondary my-2">Cadastrar Animais</a>
                     <a href="#" class="btn btn-danger my-2">Excluir Cadastro</a>
                 </p>
             </div>
@@ -58,7 +74,7 @@ include_once('topCliente.php');
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
                                 <img class="card-img-top"
-                                     src="img/<?=$animal->getEspecie();?>.jpg"
+                                     src="img/<?=$animal->getEspecie()?>.jpg"
                                      alt="Card image cap">
                                 <div class="card-body">
                                     <h4><?=ucfirst($animal->getNome())?> </h4>

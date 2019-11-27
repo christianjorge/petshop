@@ -29,7 +29,7 @@
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-white">Editar Cliente</a></li>
                         <li><a href="#" class="text-white">Excluir Cliente</a></li>
-                        <li><a href="./index.php" class="text-white">Finalizar cliente</a></li>
+                        <li><a href="./dashboard.php" class="text-white">Finalizar cliente</a></li>
                     </ul>
                 </div>
             </div>

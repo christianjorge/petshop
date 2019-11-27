@@ -1,158 +1,70 @@
-<?php
-require_once ('top.php');
-require_once ('Classes/AppDB.php');
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-unset($_SESSION);
-print_r($_SESSION);
+    <title>Pitoco Petshop</title>
 
-//$bd = new AppDB();
-//$bd->executeQuery("INSERT INTO cliente (nome) VALUES ('Christian Jorge')");
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-?>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Atendimentos na Empresa</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Compartilhar</button>
-                <button class="btn btn-sm btn-outline-secondary">Exportar</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Essa semana
-                </button>
-            </div>
-          </div>
+    <!-- Custom styles for this template -->
+    <link href="/css/cover.css" rel="stylesheet">
+</head>
 
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+<body class="text-center">
+    <div id="bg">
+        <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+            <header class="masthead mb-auto">
+                <div class="inner">
+        <!--<h3 class="masthead-brand">PITOCO petshop</h3>-->
+                    <nav class="nav nav-masthead justify-content-center">
+                        <a class="nav-link active" href="#">Inicio</a>
+                        <a class="nav-link" href="#">Localidade</a>
+                        <a class="nav-link" href="#">Contatos</a>
+                    </nav>
+                </div>
+                <img src="img/Logo%20Pitoco.png" width="40%"  class="img-thumbnail">
+            </header>
 
-          <h2>Novos Clientes Cadastrados</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-<?php
-require_once ('footer.php');
-?>
+            <main role="main" class="inner cover">
+                <h1 class="cover-heading">Bem-vindo ao nosso sistema!</h1>
+                <p class="lead">
+                    Em nosso sistema voce podera registrar seu cliente
+                    <br>
+                    Vincular Animais
+                    <br>
+                    Cadastrar Produtos
+                    <br>
+                    Controlar atendimentos e servicos
+                    <br>
+                    Controle Financeiro
+                    <br>
+                </p>
+                <p class="lead">
+                    <a href="dashboard.php" class="btn btn-lg btn-success">Acessar Dashboard</a>
+                </p>
+            </main>
+
+            <footer class="mastfoot mt-auto">
+                <div class="inner">
+        <!--            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>-->
+                </div>
+            </footer>
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="bootstrap-4.3.1/dist/js/popper.min.js"></script>
+        <script src="bootstrap-4.3.1/dist/js/bootstrap.min.js"></script>
+    </div>
+</body>
+</html>
