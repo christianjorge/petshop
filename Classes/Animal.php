@@ -1,15 +1,72 @@
 <?php
-
-
-class Animal{
+require ('iAnimal.php');
+class Animal implements iAnimal {
     private $id = 0;
+    private $nome = "";
+    private $sexo = "";
     private $especie = "";
     private $raca = "";
     private $cor = "";
+
+    public function excluiAnimal($id)
+    {
+        // TODO: Implement excluiAnimal() method.
+    }
+
+    public function editaAnimal($id)
+    {
+        // TODO: Implement editaAnimal() method.
+    }
+
+    public function cadastraAnimal(Animal $animal)
+    {
+        // TODO: Implement cadastraAnimal() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function atendeAnimal() {
+        // TODO: Implement vacinaAnimal() method.
+    }
+
+    public function getSexo()
+    {
+        if($this->sexo == 'M'){
+            return "Macho";
+        }else{
+            return "Fêmea";
+        }
+    }
+
+    /**
+     * @param string $sexo
+     */
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+    }
     private $peso = 0.0;
     private $dataNasc;
     private $observacao = "";
     private $idCliente = 0;
+
+    /**
+     * @return string
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    /**
+     * @param string $nome
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
 
     /**
      * Animal constructor.

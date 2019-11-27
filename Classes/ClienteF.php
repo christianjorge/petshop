@@ -19,6 +19,10 @@ class ClienteF extends Fisica {
         $this->contatos = array();
     }
 
+    public function validaDocumento(){
+        return "CPF Válido";
+    }
+
     public function getByName($nome){
         $db = new AppDB();
         $nome = addslashes($nome);
@@ -46,9 +50,11 @@ class ClienteF extends Fisica {
             while ($dados = $animaisQ->fetch_array()){
                 $animal = new Animal($dados['idCliente']);
                 $animal->setId($dados['id']);
+                $animal->setNome($dados['nome']);
                 $animal->setEspecie($dados['especie']);
                 $animal->setRaca($dados['raca']);
                 $animal->setCor($dados['cor']);
+                $animal->setSexo($dados['sexo']);
                 $animal->setPeso($dados['peso']);
                 $animal->setDataNasc($dados['dataNasc']);
                 $animal->setObservacao($dados['observacao']);

@@ -12,6 +12,9 @@ class ClienteJ extends Juridica
     {
         return $this->id;
     }
+    public function validaDocumento() {
+        return "CNPJ válido";
+    }
 
     /**
      * @param int $id

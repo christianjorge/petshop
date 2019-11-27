@@ -1,11 +1,8 @@
 <?php
 
-class Funcionario{
-    private $id = "";
-    private $nome = "";
-    private $email = "";
+class Funcionario extends Pessoa {
+    private $id = 0;
     private $senha = "";
-    private $idEndereco = "";
     private $cpf = "";
     private $cargo = "";
     private $carteiraTrab = "";
@@ -19,7 +16,10 @@ class Funcionario{
     {
         $this->dataCont = new DateTime();
     }
-
+    public function validaDocumento()
+    {
+        return "CPF válido";
+    }
     /**
      * @return string
      */
@@ -39,38 +39,6 @@ class Funcionario{
     /**
      * @return string
      */
-    public function getNome()
-    {
-        return $this->nome;
-    }
-
-    /**
-     * @param string $nome
-     */
-    public function setNome($nome)
-    {
-        $this->nome = $nome;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
     public function getSenha()
     {
         return $this->senha;
@@ -83,23 +51,6 @@ class Funcionario{
     {
         $this->senha = $senha;
     }
-
-    /**
-     * @return string
-     */
-    public function getIdEndereco()
-    {
-        return $this->idEndereco;
-    }
-
-    /**
-     * @param string $idEndereco
-     */
-    public function setIdEndereco($idEndereco)
-    {
-        $this->idEndereco = $idEndereco;
-    }
-
     /**
      * @return string
      */

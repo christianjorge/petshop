@@ -7,28 +7,28 @@ require_once('Classes/ClienteF.php');
 session_start();
 //print_r($_POST);
 //Busca cliente, salva código em sessão
-if(!isset($_SESSION['inseriu']) || $_SESSION['inseriu'] == ""){
-    if(isset($_POST['funcao']) && $_POST['funcao'] == 'Cadastrar'){
-        $bd = new AppDB();
-        $bd->executeQuery("INSERT INTO endereco (cep, rua, bairro, cidade, estado, numero, complemento) VALUES ('".$_POST['cep']."','".$_POST['rua']."','".$_POST['bairro']."','".$_POST['cidade']."','".$_POST['estado']."','".$_POST['numero']."','".$_POST['complemento']."')");
-        $rs = $bd->executeQuery("SELECT max(id) id FROM endereco");
-        $row = mysqli_fetch_array($rs);
-        $idendereco = $row['id'];
-        $bd->executeQuery("INSERT INTO cliente (nome, email, idEndereco, cpf_cnpj, tipo) VALUES ('".$_POST['nome']."','".$_POST['email']."', $idendereco,'".$_POST['CpfCnpj']."','".$_POST['tipo']."')");
-        $cliente = new ClienteF();
-        $cliente->getByName($_POST['nome']);
-        $_SESSION['inseriu'] = 'sim';
-        unset($_POST['funcao']);
-    }
-} else {
-    $cliente = new ClienteF();
-    $cliente->getByName($_POST['nome']);
-}
 
-if(isset($_POST['funcao']) && $_POST['funcao'] == 'Buscar' && (!isset($_SESSION['cliente']) || $_SESSION['cliente'] == "")){
+if(isset($_POST['funcao']) && $_POST['funcao'] == 'Buscar'){
     $cliente = new ClienteF();
     $cliente->getByName($_POST['filtroNome']);
-    var_dump($cliente);
+} else {
+    if (!isset($_SESSION['inseriu']) || $_SESSION['inseriu'] == "") {
+        if (isset($_POST['funcao']) && $_POST['funcao'] == 'Cadastrar') {
+            $bd = new AppDB();
+            $bd->executeQuery("INSERT INTO endereco (cep, rua, bairro, cidade, estado, numero, complemento) VALUES ('" . $_POST['cep'] . "','" . $_POST['rua'] . "','" . $_POST['bairro'] . "','" . $_POST['cidade'] . "','" . $_POST['estado'] . "','" . $_POST['numero'] . "','" . $_POST['complemento'] . "')");
+            $rs = $bd->executeQuery("SELECT max(id) id FROM endereco");
+            $row = mysqli_fetch_array($rs);
+            $idendereco = $row['id'];
+            $bd->executeQuery("INSERT INTO cliente (nome, email, idEndereco, cpf_cnpj, tipo) VALUES ('" . $_POST['nome'] . "','" . $_POST['email'] . "', $idendereco,'" . $_POST['CpfCnpj'] . "','" . $_POST['tipo'] . "')");
+            $cliente = new ClienteF();
+            $cliente->getByName($_POST['nome']);
+            $_SESSION['inseriu'] = 'sim';
+            unset($_POST['funcao']);
+        }
+    } else {
+        $cliente = new ClienteF();
+        $cliente->getByName($_POST['nome']);
+    }
 }
 
 $_SESSION['cliente'] = $cliente->getId();
@@ -61,13 +61,17 @@ include_once('topCliente.php');
                                      src="img/<?=$animal->getEspecie();?>.jpg"
                                      alt="Card image cap">
                                 <div class="card-body">
-                                    <h4><?=ucfirst($animal->getEspecie())?> </h4>
+                                    <h4><?=ucfirst($animal->getNome())?> </h4>
                                     <p class="card-text">
+                                        Espécie: <?=$animal->getEspecie();?>
+                                        <br>
                                         Raça: <?=$animal->getRaca();?>
                                         <br>
                                         Cor: <?=$animal->getCor();?>
                                         <br>
                                         Nascido em: <?=$animal->getDataNasc();?>
+                                        <br>
+                                        <?=$animal->getSexo();?>
                                         <br>
                                         Peso: <?=$animal->getPeso();?>
                                     </p>

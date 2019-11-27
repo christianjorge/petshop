@@ -24,6 +24,7 @@ abstract class Pessoa
         return $this->email;
     }
 
+    public abstract function validaDocumento();
     /**
      * @param string $email
      */
