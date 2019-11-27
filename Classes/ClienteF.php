@@ -22,7 +22,7 @@ class ClienteF extends Fisica {
     public function getByName($nome){
         $db = new AppDB();
         $nome = addslashes($nome);
-        $clienteQ = $db->executeQuery("SELECT * FROM cliente WHERE nome = '$nome'");
+        $clienteQ = $db->executeQuery("SELECT * FROM cliente WHERE nome LIKE '%$nome%'");
         if($dados = $clienteQ->fetch_array()){
             $this->setId($dados['id']);
             $this->setNome($dados['nome']);

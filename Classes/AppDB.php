@@ -13,11 +13,13 @@ class AppDB {
     }
 
     private function connect(){
-        $this->mysqli = new mysqli($this->host,$this->user,$this->password, $this->database);
-        if(!$this->mysqli) {
-            echo "Falha na conexao com o Banco de Dados!<br />";
-            echo "Erro: " . mysqli_error($this->mysqli);
-            die();
+        try {
+            $this->mysqli = new mysqli($this->host,$this->user,$this->password, $this->database);
+            if(!$this->mysqli) {
+                throw new Exception('Falha na conexao com o Banco de Dados!<br/>');
+            }
+        } catch(Exception $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -27,16 +29,17 @@ class AppDB {
 
     public function executeQuery($query) {
         $this->connect();
-        $result = mysqli_query($this->mysqli, $query);
-        if($result) {
-            $this->disconnect();
-            return $result;
-        } else {
-            echo "Ocorreu um erro na execução da SQL";
-            echo "Erro :" . mysqli_error($this->mysqli);
-            echo "SQL: " . $query;
-            die();
-            $this->disconnect();
+        try{
+            $result = mysqli_query($this->mysqli, $query);
+            if($result) {
+                $this->disconnect();
+                return $result;
+            } else {
+                throw new Exception("Ocorreu um erro na execução da SQL! Verificar conexão com o banco. SQL: [$query]<br/>");
+                $this->disconnect();
+            }
+        }catch (Exception $e){
+            echo $e->getMessage();
         }
     }
 }
