@@ -4,6 +4,13 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 //error_reporting(E_ALL);
 require_once('Classes/ClienteF.php');
+require_once ('Classes/AppDB.php');
+if(isset($_GET['delIdAnimal'])){
+    $id = !is_numeric($_GET['delIdAnimal']) ? 0 : $_GET['delIdAnimal'];
+    $bd = new AppDB();
+    $bd->executeQuery("DELETE FROM animal WHERE id=$id");
+    header('Location: '.'infoCliente.php');
+}
 session_start();
 //print_r($_POST);
 //Busca cliente, salva código em sessão
@@ -43,11 +50,14 @@ if(isset($_POST['funcao'])){
             $cliente->getByName($_POST['nome']);
         }
     }
+}else{
+    $cliente = new ClienteF();
+    $cliente->getByName($_SESSION['nome_cliente']);
 }
-
 
 $_SESSION['id_cliente'] = $cliente->getId();
 $_SESSION['nome_cliente'] = $cliente->getNome();
+
 include_once('topCliente.php');
 ?>
     <section class="jumbotron text-center">
@@ -87,18 +97,15 @@ include_once('topCliente.php');
                                     <br>
                                     Nascido em: <?=$animal->getDataNasc();?>
                                     <br>
-                                    <?=$animal->getSexo();?>
+                                    <?=$animal->getSexo() == 'M'? 'Macho' : 'Femea'?>
                                     <br>
                                     Peso: <?=$animal->getPeso();?>
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar
+                                        <a href="infoCliente.php?delIdAnimal=<?=$animal->getId()?>" type="button" class="btn btn-sm btn-outline-secondary">Excluir
                                             Animal
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-success">Realizar
-                                            Atendimento
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

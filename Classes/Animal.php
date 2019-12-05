@@ -21,7 +21,7 @@ class Animal implements iAnimal {
     public function cadastraAnimal() {
         $bd = new AppDB();
         $this->setPeso(str_replace(',', '.',$this->getPeso()));
-        $bd->executeQuery("INSERT INTO `animal` (`especie`, `raca`, `cor`, `peso`, `dataNasc`, `observacao`, `idCliente`) VALUES ('".$this->getEspecie()."', '".$this->getRaca()."', '".$this->getCor()."', '".$this->getPeso()."', '".$this->getDataNasc()."', '".$this->getObservacao()."', ".$this->getIdCliente().");");
+        $bd->executeQuery("INSERT INTO `animal` (`especie`, `raca`, `cor`, `peso`, `dataNasc`, `observacao`, `idCliente`, `sexo`, `nome`) VALUES ('".$this->getEspecie()."', '".$this->getRaca()."', '".$this->getCor()."', '".$this->getPeso()."', '".$this->getDataNasc()."', '".$this->getObservacao()."', '".$this->getIdCliente()."', '".$this->getSexo()."', '".$this->getNome()."')");
     }
 
     /**
@@ -33,11 +33,7 @@ class Animal implements iAnimal {
 
     public function getSexo()
     {
-        if($this->sexo == 'M'){
-            return "Macho";
-        }else{
-            return "Femea";
-        }
+        return $this->sexo == 'M' ? 'M' : 'F';
     }
 
     /**

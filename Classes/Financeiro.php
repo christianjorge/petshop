@@ -1,5 +1,5 @@
 <?php
-
+require_once ('iFinanceiro.php');
 
 class Financeiro implements iFinanceiro {
     private $idCliente;
