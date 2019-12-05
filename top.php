@@ -45,19 +45,19 @@ session_start();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="buscarServico.php">
                             <span data-feather="file"></span>
                             Serviços
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="buscarProduto.php">
                             <span data-feather="shopping-cart"></span>
                             Produtos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="buscarFuncionario.php">
                             <span data-feather="users"></span>
                             Funcionários
                         </a>

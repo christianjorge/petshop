@@ -2,9 +2,6 @@
 require_once ('top.php');
 require_once ('Classes/AppDB.php');
 
-unset($_SESSION);
-print_r($_SESSION);
-
 //$bd = new AppDB();
 //$bd->executeQuery("INSERT INTO cliente (nome) VALUES ('Christian Jorge')");
 

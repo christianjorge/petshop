@@ -1,71 +1,72 @@
 <?php
-require_once('Classes/AppDB.php');
-if (isset($_GET['removeId'])){
-    $id = !is_numeric($_GET['removeId']) ? 0 : $_GET['removeId'];
-    $bd = new AppDB();
-    $bd->executeQuery("DELETE FROM cliente WHERE id=$id");
-    header('Location: '.'buscarCliente.php');
-}
+require_once ('Classes/AppDB.php');
 include_once('top.php');
-    if(isset($_POST['funcao']) && $_POST['funcao'] == 'Remover'){
-        try {
-            $ids = explode(",", $_POST['ids']);
-            $bd = new AppDB();
-            foreach ($ids as $id) {
-                if (is_numeric($id))
-                    $bd->executeQuery("DELETE FROM cliente WHERE id=$id");
-            }
-        }catch (Exception $e){ ?>
-            <div class="alert alert-danger" role="alert">
-                Erro ao Remover!!!
-            </div>
+if(isset($_POST['funcao']) && $_POST['funcao'] == 'Cadastrar' && !isset($_SESSION['inseriu'])){
+    $bd = new AppDB();
+    $bd->executeQuery("INSERT INTO endereco (cep, rua, bairro, cidade, estado, numero, complemento) VALUES ('" . $_POST['cep'] . "','" . $_POST['rua'] . "','" . $_POST['bairro'] . "','" . $_POST['cidade'] . "','" . $_POST['estado'] . "','" . $_POST['numero'] . "','" . $_POST['complemento'] . "')");
+    $rs = $bd->executeQuery("SELECT max(id) id FROM endereco");
+    $row = mysqli_fetch_array($rs);
+    $idendereco = $row['id'];
+    $bd->executeQuery("INSERT INTO funcionario (nome, email, senha, idEndereco, cpf, cargo, dataCont) VALUES ('" . $_POST['nome'] . "','" . '123' . "','" . $_POST['email'] . "', $idendereco,'" . $_POST['Cpf'] . "','" . $_POST['cargo'] . "','" . $_POST['dataCont'] . "')");
+    $_SESSION['inseriu'] = 'sim';
+    unset($_POST['funcao']);
+}else if(isset($_POST['funcao']) && $_POST['funcao'] == 'Remover'){
+    try {
+        $ids = explode(",", $_POST['ids']);
+        $bd = new AppDB();
+        foreach ($ids as $id) {
+            if (is_numeric($id))
+                $bd->executeQuery("DELETE FROM funcionario WHERE id=$id");
+        }
+    }catch (Exception $e){ ?>
+        <div class="alert alert-danger" role="alert">
+            Erro ao Remover!!!
+        </div>
 
-        <?php }
-    }
+    <?php }
+}
+if(isset($_SESSION['inseriu']) && $_SESSION['inseriu'] == 'sim'){?>
+    <div class="alert alert-success" role="alert">
+        Cadastrado com Sucesso!!!
+    </div>
+    <?php
+}
 $bd = new AppDB();
-$rs = $bd->executeQuery("SELECT * FROM cliente");
+$rs = $bd->executeQuery("SELECT * FROM funcionario");
 $funcs = array();
 while ($dados = $rs->fetch_array()){
     $f['id'] = $dados['id'];
     $f['nome'] = $dados['nome'];
-    $f['email'] = $dados['email'];
+    $f['cpf'] = $dados['cpf'];
+    $f['cargo'] = $dados['cargo'];
     array_push($funcs, $f);
 }
 ?>
-    <h2>Buscar Cliente</h2>
-    <form id="formBuscar" action="./infoCliente.php" method="post">
-        <div class="form-group">
-            <label for="filtroNome">Nome</label>
-            <input type="text" class="form-control" id="filtroNome" name="filtroNome" placeholder="Digite o cliente desejado">
-            <input type="hidden" name="funcao" value="Buscar">
-        </div>
-        <button type="submit" name="submit" class="btn btn-success" form="formBuscar">Buscar</button>
-    </form>
-    <hr>
-
-    <h2>Cadastrar Novo Cliente</h2>
-    <form id="formCliente" action="./infoCliente.php" method="post" novalidate="novalidate">
+    <h2>Cadastrar Novo Funcionario</h2>
+    <form id="formFuncionario" action="./buscarFuncionario.php?datetime=000" method="post" novalidate="novalidate">
         <input type="hidden" name="funcao" value="Cadastrar">
-        <div class="form-group">
-            <label for="inputNome">Nome</label>
-            <input type="text" class="form-control" name="nome" id="inputNome" placeholder="João LW Fonseca">
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="inputNome">Nome</label>
+                <input type="text" class="form-control" name="nome" id="inputNome" placeholder="João LW Fonseca">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputData">Data Contratação</label>
+                <input type="text" class="form-control" name="dataCont" id="inputData" placeholder="0000/00/00">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="inputCpfCnpj">CPF/CNPJ</label>
-                <input type="text" class="form-control" name="CpfCnpj" id="inputCpfCnpj" placeholder="CPF ou CNPJ">
+                <label for="inputCpfCnpj">CPF</label>
+                <input type="text" class="form-control" name="Cpf" id="inputCpfCnpj" placeholder="CPF">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputEmail4">Email</label>
                 <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email">
             </div>
             <div class="form-group col-md-4">
-                <label for="inputTipo">Pessoa</label>
-                <select id="inputTipo" name="tipo" class="form-control">
-                    <option selected>--- Escolha ---</option>
-                    <option value="fisica">Física</option>
-                    <option value="juridica">Jurídica</option>
-                </select>
+                <label for="inputCargo">Cargo</label>
+                <input type="text" class="form-control" name="cargo" id="inputCargo" placeholder="Cargo">
             </div>
         </div>
         <div class="form-row">
@@ -107,14 +108,14 @@ while ($dados = $rs->fetch_array()){
                 <input type="text" class="form-control" name="cep" id="inputCep" placeholder="00000-000">
             </div>
         </div>
-        <button type="submit" name="submit2" class="btn btn-primary" form="formCliente">Salvar</button>
+        <button type="submit" name="submit2" class="btn btn-primary" form="formFuncionario">Salvar</button>
     </form>
     <hr style="border: #000 1px solid"/>
-    <h2>Remover Clientes</h2>
+    <h2>Remover Funcionarios</h2>
     <div class="alert alert-warning" role="alert">
         Digite os ids separados por virgula.
     </div>
-    <form id="formServico1" action="./buscarCliente.php?datetime=000" method="post" novalidate="novalidate">
+    <form id="formServico1" action="./buscarFuncionario.php?datetime=000" method="post" novalidate="novalidate">
         <input type="hidden" name="funcao" value="Remover">
         <div class="form-row">
             <div class="form-group col-md-8">
@@ -125,13 +126,14 @@ while ($dados = $rs->fetch_array()){
         <button type="submit" name="submit3" class="btn btn-primary" form="formServico1">Salvar</button>
     </form>
     <hr style="border: #000 1px solid"/>
-    <h2>Lista de Clientes</h2>
+    <h2>Lista de Funcionarios</h2>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">id</th>
             <th scope="col">Nome</th>
-            <th scope="col">Email</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Cargo</th>
         </tr>
         </thead>
         <tbody>
@@ -139,12 +141,14 @@ while ($dados = $rs->fetch_array()){
             <tr>
                 <th scope="row"><?=$f['id']?></th>
                 <td><?=$f['nome']?></td>
-                <td><?=$f['email']?></td>
+                <td><?=$f['cpf']?></td>
+                <td><?=$f['cargo']?></td>
             </tr>
         <?php } ?>
         </tbody>
     </table>
 
 <?php
+unset($_SESSION['inseriu']);
 include_once('footer.php');
 ?>

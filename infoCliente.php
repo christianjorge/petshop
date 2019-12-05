@@ -51,66 +51,66 @@ $_SESSION['nome_cliente'] = $cliente->getNome();
 include_once('topCliente.php');
 ?>
     <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading"><?=$cliente->getNome();?></h1>
-                <p class="lead text-muted">
-                    <?=$cliente->getEndereco()->getRua() ?> Nº <?=$cliente->getEndereco()->getNumero() ?> <?=$cliente->getEndereco()->getBairro() ?>   <?=$cliente->getEndereco()->getCidade() ?> - <?=$cliente->getEndereco()->getEstado() ?>
-                    <br>
-                    <?=$cliente->getCpf()."<br>".$cliente->getEmail();?></p>
-                <p>
-                    <a href="#" class="btn btn-primary my-2">Iniciar Compra</a>
-                    <a href="./cadastrarAnimal.php" class="btn btn-secondary my-2">Cadastrar Animais</a>
-                    <a href="#" class="btn btn-danger my-2">Excluir Cadastro</a>
-                </p>
-            </div>
-        </section>
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <h3>Animais do Cliente</h3>
-                <div class="row">
-                    <?php
-                    foreach($cliente->getAnimais() as $animal) {
-                        ?>
-                        <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top"
-                                     src="img/<?=$animal->getEspecie()?>.jpg"
-                                     alt="Card image cap">
-                                <div class="card-body">
-                                    <h4><?=ucfirst($animal->getNome())?> </h4>
-                                    <p class="card-text">
-                                        Espécie: <?=$animal->getEspecie();?>
-                                        <br>
-                                        Raça: <?=$animal->getRaca();?>
-                                        <br>
-                                        Cor: <?=$animal->getCor();?>
-                                        <br>
-                                        Nascido em: <?=$animal->getDataNasc();?>
-                                        <br>
-                                        <?=$animal->getSexo();?>
-                                        <br>
-                                        Peso: <?=$animal->getPeso();?>
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Editar
-                                                Animal
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-outline-success">Realizar
-                                                Atendimento
-                                            </button>
-                                        </div>
+        <div class="container">
+            <h1 class="jumbotron-heading"><?=$cliente->getNome();?></h1>
+            <p class="lead text-muted">
+                <?=$cliente->getEndereco()->getRua() ?> Nº <?=$cliente->getEndereco()->getNumero() ?> <?=$cliente->getEndereco()->getBairro() ?>   <?=$cliente->getEndereco()->getCidade() ?> - <?=$cliente->getEndereco()->getEstado() ?>
+                <br>
+                <?=$cliente->getCpf()."<br>".$cliente->getEmail();?></p>
+            <p>
+                <a href="./carrinhoCliente.php" class="btn btn-primary my-2">Iniciar Compra</a>
+                <a href="./cadastrarAnimal.php" class="btn btn-secondary my-2">Cadastrar Animais</a>
+                <a href="./buscarCliente.php?removeId=<?=$cliente->getId()?>" class="btn btn-danger my-2">Excluir Cadastro</a>
+            </p>
+        </div>
+    </section>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <h3>Animais do Cliente</h3>
+            <div class="row">
+                <?php
+                foreach($cliente->getAnimais() as $animal) {
+                    ?>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top"
+                                 src="img/<?=$animal->getEspecie()?>.jpg"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h4><?=ucfirst($animal->getNome())?> </h4>
+                                <p class="card-text">
+                                    Espécie: <?=$animal->getEspecie();?>
+                                    <br>
+                                    Raça: <?=$animal->getRaca();?>
+                                    <br>
+                                    Cor: <?=$animal->getCor();?>
+                                    <br>
+                                    Nascido em: <?=$animal->getDataNasc();?>
+                                    <br>
+                                    <?=$animal->getSexo();?>
+                                    <br>
+                                    Peso: <?=$animal->getPeso();?>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar
+                                            Animal
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-success">Realizar
+                                            Atendimento
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                    }
-                    ?>
+                    </div>
+                    <?php
+                }
+                ?>
 
-                </div>
             </div>
         </div>
+    </div>
 
     </main>
 
